@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhiteBoard</title>
+</head>
+<style>
+    canvas {
+        background: black;
+        width: 95%;
+        height: 70%;
+    }
+</style>
+
+<body>
+    <h1><%= msg%></h1>
+    <p class="select">Enter the color of the brush</p>
+    <input type="color" class="clrpicker">
+    <p class="select">Enter the size of the brush</p>
+    <select id="drop">
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20" selected>20</option>
+        <option value="25">25</option>
+    </select>
+
+    <canvas id="canvas"></canvas>
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./main.js"></script>
+
+</html>
