@@ -18,7 +18,10 @@ io.on('connection', (socket) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index', { msg: 'Hello from Node' });
+    res.render('login');
+})
+app.get('/draw', (req, res) => {
+    res.render('draw', { msg: 'Hello Arkaraj!' });
 })
 
 port = process.env.PORT || 3000;

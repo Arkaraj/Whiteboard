@@ -7,25 +7,28 @@ const brushThickness = document.querySelector('#drop');
 
 //resize();
 // last known position
-var pos = { x: 0, y: 0 };
+let pos = { x: 0, y: 0 };
 ctx.canvas.width = 0.75 * (window.innerWidth);
 ctx.canvas.height = 0.75 * (window.innerHeight);
 
 //window.addEventListener('resize', resize);
-document.addEventListener('mousemove', draw);
-document.addEventListener('mousedown', setPosition);
-document.addEventListener('mouseenter', setPosition);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mousedown', setPosition);
+canvas.addEventListener('mouseenter', setPosition);
 clear.addEventListener('click', () => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 });
 
 // new position from mouse event
 function setPosition(e) {
-    pos.x = e.clientX;
-    pos.y = e.clientY - 60;
-
-    console.log(pos)
+    pos.x = e.pageX - canvas.offsetLeft;
+    pos.y = e.pageY - canvas.offsetTop;
+    //console.log(pos)
 }
+
+ctx.canvas.width = 0.98 * (window.innerWidth);
+
+ctx.canvas.height = 0.87 * (window.innerHeight);
 
 // resize canvas
 function resize() {
@@ -48,6 +51,23 @@ function draw(e) {
     setPosition(e);
     // to
     ctx.lineTo(pos.x, pos.y);
-
-    ctx.stroke(); // draw it!
+    ctx.stroke();
 }
+const dbc = document.querySelector(".dropdown-content");
+
+const dp = document.querySelector(".dropdown");
+dp.addEventListener('click', () => {
+    $('.dropdown-content').toggle();
+});
+
+function changeClr() {
+    if (document.body.style.color == 'black') {
+        document.body.style.color = 'white';
+        document.body.style.background = '#333';
+    } else {
+        document.body.style.color = 'black';
+        document.body.style.background = 'white';
+    }
+}
+
+
