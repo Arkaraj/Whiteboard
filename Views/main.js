@@ -5,18 +5,27 @@ const clr = document.querySelector('.clrpicker');
 const clear = document.querySelector('#clear');
 const brushThickness = document.querySelector('#drop');
 
+//Get username and room from URL
+const { username, room } = Qs.parse(location.search, {
+    ignoreQueryPrefix: true
+});
+
+// Join WhiteBoard
+socket.emit('joinRoom', { username, room });
+
 //resize();
 // last known position
 let pos = { x: 0, y: 0 };
-ctx.canvas.width = 0.75 * (window.innerWidth);
-ctx.canvas.height = 0.75 * (window.innerHeight);
+let timer;
 
 //window.addEventListener('resize', resize);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mousedown', setPosition);
 canvas.addEventListener('mouseenter', setPosition);
 clear.addEventListener('click', () => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    socket.emit('canvas-clear', canvas.toDataURL("image/png"));
+
 });
 
 // new position from mouse event
@@ -36,6 +45,8 @@ function resize() {
     ctx.canvas.height = 0.75 * (window.innerHeight);
 }
 
+let timeout;
+
 function draw(e) {
     // mouse left button must be pressed
     if (e.buttons !== 1) return;
@@ -52,6 +63,13 @@ function draw(e) {
     // to
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
+
+    if (timeout != undefined) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        let base64ImageData = canvas.toDataURL("image/png");
+        socket.emit('canvas-image', base64ImageData);
+    }, 10);
+
 }
 const dbc = document.querySelector(".dropdown-content");
 
@@ -68,6 +86,41 @@ function changeClr() {
         document.body.style.color = 'black';
         document.body.style.background = 'white';
     }
+}
+
+// Socket io
+
+socket.on("canvas-draw", data => {
+    let image = new Image();
+    image.onload = function () {
+        ctx.drawImage(image, 0, 0);
+    };
+    image.src = data;
+});
+socket.on("canvas-wipe", data => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+});
+
+socket.on('roomUsers', ({ room, users }) => {
+    outputRoomName(room);
+    outputUsers(users);
+});
+
+function outputRoomName(room) {
+    $('.dropbtn').html(`View member accessing this Board (${room}) <i class="fas fa-caret-down"></i>`);
+}
+function outputUsers(users) {
+
+    //Remove previous users
+    let n = Object.keys(users).length;
+    //dbc.removeChild(dbc.childNodes[i]);
+
+
+    users.forEach(user => {
+        const a = document.createElement('a');
+        a.innerText = user.username;
+        dbc.appendChild(a);
+    });
 }
 
 
