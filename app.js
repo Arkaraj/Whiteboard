@@ -11,6 +11,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+const rooms = ['General', 'Server2', 'Server3', 'Server4', 'Server5', 'Server6', 'Server7'];
+
 //For static files
 app.use(express.static(path.join(__dirname, 'Views')));
 
@@ -20,19 +22,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
 io.on('connection', (socket) => {
-    console.log("User connected!!");
 
     socket.on('joinRoom', ({ username, room }) => {
 
-        const user = userJoin(socket.id, username, room);
-        socket.join(user.room);
-        console.log("New User connected!!");
+        let check = rooms.includes(room);
+        if (check) {
+            const user = userJoin(socket.id, username, room);
+            socket.join(user.room);
+            console.log("New User connected!!");
 
-        // Send users and room info
-        io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getRoomUsers(user.room)
-        });
+            // Send users and room info
+            io.to(user.room).emit('roomUsers', {
+                room: user.room,
+                users: getRoomUsers(user.room)
+            });
+        } else {
+            io.emit('wrong_Room', check);
+        }
+
     });
 
     socket.on('canvas-image', data => {
@@ -58,7 +65,10 @@ io.on('connection', (socket) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('login');
+    const Obj = {
+        "rooms": rooms
+    };
+    res.render('login', { rooms: Obj });
 })
 app.get('/draw', (req, res) => {
     let query = url.parse(req.url, true).query;

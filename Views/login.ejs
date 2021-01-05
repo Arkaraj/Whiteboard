@@ -25,12 +25,10 @@
                 <div class="form-control">
                     <label for="room">Room</label>
                     <select name="room" id="room">
-                        <option value="General">General</option>
-                        <option value="Server 2">Server 2</option>
-                        <option value="Server 3">Server 3</option>
-                        <option value="Server 4">Server 4</option>
-                        <option value="Server 5">Server 5</option>
-                        <option value="Server 6">Server 6</option>
+                        <% rooms.rooms.forEach(element => { %>
+                        <option value=<%= element %>><%= element %></option>
+                        <% }) %>
+
                     </select>
                 </div>
                 <button type="submit" class="btn">Join Room</button>

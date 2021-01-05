@@ -110,15 +110,33 @@ function outputRoomName(room) {
 function outputUsers(users) {
 
     //Remove previous users
-    let n = Object.keys(users).length;
-    //dbc.removeChild(dbc.childNodes[i]);
-
+    dbc.innerHTML = '';
 
     users.forEach(user => {
         const a = document.createElement('a');
         a.innerText = user.username;
         dbc.appendChild(a);
     });
+}
+
+socket.on('wrong_Room', check => {
+    window.location = '/'
+})
+
+function Save() {
+
+    const a = document.createElement('a');
+    //For IE/Edge.... who uses this anyways :(
+    if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(canvas.msToBlob(), "WhiteBoard.png")
+    }
+    else {
+        document.body.appendChild(a);
+        a.href = canvas.toDataURL("image/png");
+        a.download = 'WhiteBoard.png';
+        a.click();
+        document.body.removeChild(a);
+    }
 }
 
 
