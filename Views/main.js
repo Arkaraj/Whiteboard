@@ -79,12 +79,10 @@ dp.addEventListener('click', () => {
 });
 
 function changeClr() {
-    if (document.body.style.color == 'black') {
-        document.body.style.color = 'white';
-        document.body.style.background = '#333';
+    if (canvas.style.background == 'rgb(51, 51, 51)') {
+        canvas.style.background = 'white';
     } else {
-        document.body.style.color = 'black';
-        document.body.style.background = 'white';
+        canvas.style.background = 'rgb(51, 51, 51)';// #333
     }
 }
 
