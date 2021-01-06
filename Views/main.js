@@ -8,12 +8,12 @@ const brushThickness = document.querySelector('#drop');
 /* 
 To do
 Adding sounds for entering and leaving Rooms....
-
+*/
 const joinSound = new Audio("./join.mp3");
 joinSound.crossOrigin = "anonymous";
 const leaveSound = new Audio("./leave.mp3");
 leaveSound.crossOrigin = "anonymous";
-*/
+
 
 //Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
@@ -109,18 +109,26 @@ socket.on("canvas-wipe", data => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 });
 
-socket.on('roomUsers', ({ room, users }) => {
+socket.on('roomUsers', ({ room, users, status }) => {
     outputRoomName(room);
-    outputUsers(users);
+    outputUsers(users, status);
 });
 
 function outputRoomName(room) {
     $('.dropbtn').html(`View member accessing this Board (${room}) (<span id="numb"></span>) <i class="fas fa-caret-down"></i>`);
 }
-function outputUsers(users) {
+function outputUsers(users, status) {
 
     //Remove previous users
     let n = Object.keys(users).length;
+
+    //Joined
+    if (status) {
+        let join = joinSound.play();
+    } else {  // Left
+        let leave = leaveSound.play();
+    }
+
     $('#numb').html(n);
     dbc.innerHTML = '';
 
