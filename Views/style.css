@@ -81,7 +81,7 @@ span#icons{
   margin: 0 5%;
 }
 span#clr{
-  margin-left: 12%;
+  margin-left: 10%;
 }
 span#side{
   margin: 0 10%;
@@ -95,8 +95,25 @@ span#side{
   font-family: 'Roboto', sans-serif;
   font-size: 17px;
   margin-left: 25%;
+  outline: none;
 }
 a.btn{
   margin: 0;
   text-decoration: none;
+}
+footer{
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background: #747474;
+  margin-top: 15px;
+  padding:20px;
+  border-radius: 20px;
+  border:2px solid tomato;
+  text-align: center;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+footer::selection{
+  /* background: rgb(112,144,190); */
+  background: #D4AF37;
 }
