@@ -34,7 +34,8 @@ io.on('connection', (socket) => {
             // Send users and room info
             io.to(user.room).emit('roomUsers', {
                 room: user.room,
-                users: getRoomUsers(user.room)
+                users: getRoomUsers(user.room),
+                status: true
             });
         } else {
             io.to(`${socket.id}`).emit('wrong_Room', check);
@@ -58,7 +59,8 @@ io.on('connection', (socket) => {
         if (user) {
             io.to(user.room).emit('roomUsers', {
                 room: user.room,
-                users: getRoomUsers(user.room)
+                users: getRoomUsers(user.room),
+                status: false
             });
         }
     });
