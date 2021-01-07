@@ -117,3 +117,7 @@ footer::selection{
   /* background: rgb(112,144,190); */
   background: #D4AF37;
 }
+.fab{
+  color: black;
+  font-size: 2rem;
+}
