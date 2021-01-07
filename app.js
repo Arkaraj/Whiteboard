@@ -45,7 +45,13 @@ io.on('connection', (socket) => {
 
     socket.on('canvas-image', data => {
         const user = getCurrentUser(socket.id);
-        socket.broadcast.to(user.room).emit('canvas-draw', data);
+        if (user) {
+            socket.broadcast.to(user.room).emit('canvas-draw', data);
+        }
+        // Fixing the error
+        else {
+            socket.emit("wrong_Room", false);
+        }
 
     });
     socket.on('canvas-clear', data => {
