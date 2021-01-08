@@ -25,24 +25,53 @@ socket.emit('joinRoom', { username, room });
 
 //resize();
 // last known position
-let pos = { x: 0, y: 0 };
-let timer;
+let pos = { x: 0, y: 0, tx: 0, ty: 0 };
 
 //window.addEventListener('resize', resize);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mousedown', setPosition);
 canvas.addEventListener('mouseenter', setPosition);
+
+// For mobile
+canvas.addEventListener('touchstart', setPosMobile);
+canvas.addEventListener('touchmove', drawMobile);
+
+
 clear.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     socket.emit('canvas-clear', canvas.toDataURL("image/png"));
 
 });
 
+function setPosMobile(e) {
+    //console.log(e.touches[0]);
+    e.preventDefault();
+    let touch = e.touches[0];
+    pos.tx = touch.clientX - canvas.offsetLeft;
+    pos.ty = touch.clientY - canvas.offsetTop;
+}
+
+function drawMobile(e) {
+    e.preventDefault();
+    ctx.beginPath();
+
+    ctx.lineWidth = brushThickness.value;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = clr.value;
+
+    // from
+    ctx.moveTo(pos.tx, pos.ty);
+    setPosMobile(e);
+    // to
+    ctx.lineTo(pos.tx, pos.ty);
+    ctx.stroke();
+}
+
 // new position from mouse event
 function setPosition(e) {
     pos.x = e.pageX - canvas.offsetLeft;
     pos.y = e.pageY - canvas.offsetTop;
-    //console.log(pos)
+    // console.log(pos)
 }
 
 ctx.canvas.width = 0.98 * (window.innerWidth);
@@ -54,6 +83,8 @@ function resize() {
     ctx.canvas.width = 0.75 * (window.innerWidth);
     ctx.canvas.height = 0.75 * (window.innerHeight);
 }
+
+let syncSpeed = 1000;
 
 let timeout;
 
@@ -78,7 +109,7 @@ function draw(e) {
     timeout = setTimeout(() => {
         let base64ImageData = canvas.toDataURL("image/png");
         socket.emit('canvas-image', base64ImageData);
-    }, 10);
+    }, syncSpeed);
 
 }
 const dbc = document.querySelector(".dropdown-content");
@@ -141,7 +172,8 @@ function outputUsers(users, status) {
 
 socket.on('wrong_Room', check => {
     window.location = '/'
-})
+});
+
 
 function Save() {
 

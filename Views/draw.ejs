@@ -11,10 +11,16 @@
         crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>WhiteBoard</title>
+	<meta name="description" content="WhiteBoard - A collaborative drawing app in real-time that uses web sockets">
+	<meta name="keywords" content="WhiteBoard Drawing app">
+
 </head>
 
 <body>
-    <p>Hello <%= Qs.username%>!!</p>
+    <span class="top">
+<p>Hello <%= Qs.username%>!!</p>
+<h1 id="header"></h1>
+</span>
 
     <span id="icons">
         <i class="far fa-moon" id="clear this" onclick="changeClr()"></i>
