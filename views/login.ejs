@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="./icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style2.css" />
+    <title>WhiteBoard Login App</title>
+    <meta name="description" content="Login for WhiteBoard">
+    <meta name="keywords" content="Login Page">
+</head>
+
+<body>
+    <div class="join-container">
+        <header class="join-header">
+            <h1><i class="fas fa-brush"></i> WhiteBoard</h1>
+        </header>
+        <main class="join-main">
+            <form action="/draw">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter username..." required />
+                </div>
+                <div class="form-control">
+                    <label for="room">Room</label>
+                    <select name="room" id="room">
+                        <% rooms.rooms.forEach(element => { %>
+                        <option value=<%= element %>><%= element %></option>
+                        <% }) %>
+
+                    </select>
+                </div>
+                <button type="submit" class="btn">Join Room</button>
+            </form>
+        </main>
+    </div>
+
+    <z class=<%= rooms.class  %>><%= rooms.msg %> <a class="close" onclick="closemsg()">×</a></z>
+
+</body>
+
+<script>
+    function closemsg() {
+        let msg = document.querySelector('.msg');
+        msg.style.display = 'none';
+    }
+</script>
+
+</html>

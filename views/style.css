@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300&family=Nunito:wght@600&family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+  --clr: #ffffff;
+  --headingclr: rgb(77, 238, 226);
+  /* #AFFFCC */
+  --background:#183F63;
+  --dark-color-a: #667aff;
+	--dark-color-b: #7386ff;
+}
+
+body{
+    color: var(--clr);
+    padding: 0 10px;
+    font-family: 'Hind', sans-serif;
+    /* background: #0F1A26; */
+    /* background: var(--background); */
+    background: url(skribl.png) center fixed;
+    font-size: 1em;
+}
+
+p{
+  font-size: 1.2rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  color: var(--headingclr);
+}
+
+canvas{ 
+  border: 1px solid #000000;
+  background: #ffffff;
+}
+i{
+    cursor: pointer;
+}
+.dropbtn {
+    background-color: transparent;
+    color: inherit;
+    padding: 16px;
+    font-size: 16px;
+    border: 2px solid #000000;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--headingclr);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    transform: translateX(80%);
+    font-family: 'Nunito';
+  }
+  
+.dropdown-content a {
+    color: inherit;
+    padding: 12px 46px;
+    text-decoration: none;
+    display: block;
+  }
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: black;
+    cursor: pointer;
+}
+span#icons{
+  margin: 0 5%;
+}
+span#clr{
+  margin-left: 10%;
+}
+span#side{
+  margin: 0 10%;
+}
+.btn {
+  cursor: pointer;
+  padding: 5px 15px;
+  background: #e6e9ff;
+  color: var(--dark-color-a);
+  border: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  margin-left: 25%;
+  outline: none;
+}
+a.btn{
+  margin: 0;
+  text-decoration: none;
+}
+footer{
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background: #747474;
+  margin-top: 15px;
+  padding:20px;
+  border-radius: 20px;
+  border:2px solid tomato;
+  text-align: center;
+  font-family: 'Roboto';
+  color: #ffffff;
+}
+
+footer::selection{
+  /* background: rgb(112,144,190); */
+  background: #D4AF37;
+}
+.fab{
+  color: black;
+  font-size: 2rem;
+}
