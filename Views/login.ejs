@@ -10,8 +10,8 @@
         integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="./style2.css" />
     <title>WhiteBoard Login App</title>
-<meta name="description" content="Login for WhiteBoard">
-	<meta name="keywords" content="Login Page">
+    <meta name="description" content="Login for WhiteBoard">
+    <meta name="keywords" content="Login Page">
 </head>
 
 <body>
@@ -38,6 +38,16 @@
             </form>
         </main>
     </div>
+
+    <z class=<%= rooms.class  %>><%= rooms.msg %> <a class="close" onclick="closemsg()">×</a></z>
+
 </body>
+
+<script>
+    function closemsg() {
+        let msg = document.querySelector('.msg');
+        msg.style.display = 'none';
+    }
+</script>
 
 </html>

@@ -178,12 +178,40 @@ a {
 	width: 100%;
 }
 
-@media (max-width: 700px) {
-	.chat-main {
-		display: block;
-	}
+z{
+	display: none;
+}
 
-	.chat-sidebar {
-		display: none;
+z.msg{
+	display: block;
+	max-width: 600px;
+    margin: 80px auto;
+    color: #a94442;
+    padding: 10px 20px;
+    background: #f2dede;
+    text-align: center;
+    border: 1px solid #ebccd1;
+	border-radius: 20px;
+	transition: all .4s ease-in-out;
+}
+
+.close{
+	position: relative;
+    top: -2px;
+    right: -18px;
+	color: inherit;
+	float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+	opacity: .2;
+	cursor: pointer;
+}
+
+@media (max-width: 700px) {
+	.close{
+		top: -18px;
 	}
 }

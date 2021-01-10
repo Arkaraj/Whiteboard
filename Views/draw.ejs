@@ -11,21 +11,21 @@
         crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>WhiteBoard</title>
-	<meta name="description" content="WhiteBoard - A collaborative drawing app in real-time that uses web sockets">
-	<meta name="keywords" content="WhiteBoard Drawing app">
+    <meta name="description" content="WhiteBoard - A collaborative drawing app in real-time that uses web sockets">
+    <meta name="keywords" content="WhiteBoard Drawing app">
 
 </head>
 
 <body>
     <span class="top">
-<p>Hello <%= Qs.username%>!!</p>
-<h1 id="header"></h1>
-</span>
+        <p>Hello <%= Qs.username%>!!</p>
+        <h1 id="header"></h1>
+    </span>
 
     <span id="icons">
         <i class="far fa-moon" id="clear this" onclick="changeClr()"></i>
-        <i class="fas fa-undo-alt"></i>
-        <i class="fas fa-redo-alt"></i>
+        <i class="fas fa-undo-alt" onclick="undo()"></i>
+        <i class="fas fa-redo-alt" onclick="undo()"></i>
     </span>
 
     <span id="clr">

@@ -26,6 +26,7 @@ socket.emit('joinRoom', { username, room });
 //resize();
 // last known position
 let pos = { x: 0, y: 0, tx: 0, ty: 0 };
+let timeout;
 
 //window.addEventListener('resize', resize);
 canvas.addEventListener('mousemove', draw);
@@ -42,6 +43,8 @@ clear.addEventListener('click', () => {
     socket.emit('canvas-clear', canvas.toDataURL("image/png"));
 
 });
+
+let syncSpeed = 1000;
 
 function setPosMobile(e) {
     //console.log(e.touches[0]);
@@ -65,6 +68,12 @@ function drawMobile(e) {
     // to
     ctx.lineTo(pos.tx, pos.ty);
     ctx.stroke();
+
+    if (timeout != undefined) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        let base64ImageData = canvas.toDataURL("image/png");
+        socket.emit('canvas-image', base64ImageData);
+    }, syncSpeed);
 }
 
 // new position from mouse event
@@ -83,10 +92,6 @@ function resize() {
     ctx.canvas.width = 0.75 * (window.innerWidth);
     ctx.canvas.height = 0.75 * (window.innerHeight);
 }
-
-let syncSpeed = 1000;
-
-let timeout;
 
 function draw(e) {
     // mouse left button must be pressed
@@ -168,6 +173,10 @@ function outputUsers(users, status) {
         a.innerText = user.username;
         dbc.appendChild(a);
     });
+}
+
+function undo() {
+    alert('Functionality not available yet!!');
 }
 
 socket.on('wrong_Room', check => {

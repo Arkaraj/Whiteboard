@@ -5,16 +5,21 @@ const http = require('http');
 const socketio = require('socket.io');
 let bodyParser = require('body-parser');
 
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./users');
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./Users.js');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+    pingTimeout: 60000
+});
 
 const rooms = ['General', 'Server2', 'Server3', 'Server4', 'Server5', 'Server6', 'Server7'];
 
+let loginMsg = '';
+let loginClass = '';
+
 //For static files
-app.use(express.static(path.join(__dirname, 'Views')));
+app.use(express.static(path.join(__dirname, 'views/')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -30,6 +35,8 @@ io.on('connection', (socket) => {
             const user = userJoin(socket.id, username, room);
             socket.join(user.room);
             console.log("New User connected!!");
+            loginMsg = '';
+            loginClass = '';
 
             // Send users and room info
             io.to(user.room).emit('roomUsers', {
@@ -39,6 +46,8 @@ io.on('connection', (socket) => {
             });
         } else {
             io.to(`${socket.id}`).emit('wrong_Room', check);
+            loginMsg = 'You tried to login in an un-registered room';
+            loginClass = 'msg';
         }
 
     });
@@ -48,12 +57,13 @@ io.on('connection', (socket) => {
         if (user) {
             socket.broadcast.to(user.room).emit('canvas-draw', data);
         }
-        // Fixing the error
         else {
             socket.emit("wrong_Room", false);
+            loginMsg = 'You were logged out due to an error';
+            loginClass = 'msg';
         }
-
     });
+
     socket.on('canvas-clear', data => {
         socket.broadcast.emit('canvas-wipe', data);
 
@@ -74,9 +84,11 @@ io.on('connection', (socket) => {
 
 app.get('/', (req, res) => {
     const Obj = {
-        "rooms": rooms
+        "rooms": rooms,
+        "class": `${loginClass}`,
+        "msg": `${loginMsg}`
     };
-    res.render('login', { rooms: Obj });
+    res.render('login.ejs', { rooms: Obj });
 })
 app.get('/draw', (req, res) => {
     let query = url.parse(req.url, true).query;
@@ -84,11 +96,11 @@ app.get('/draw', (req, res) => {
         username: query.username,
         room: query.room
     }
-    res.render('draw', { Qs: msg });
+    res.render('draw.ejs', { Qs: msg });
 })
 
-port = process.env.PORT || 3000;
+PORT = process.env.PORT || 3000;
 
-server.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+server.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
 });
