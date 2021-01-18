@@ -7,3 +7,9 @@ A real time collaborative drawing whiteboard with features like rooms made with 
 ## Update
 
 App is now live on: https://whiteboard77.herokuapp.com/
+
+## Gallery
+
+https://whiteboard77.herokuapp.com/gallery
+
+To get featured, download the image and send it to arkaraj2017@gmail.com
