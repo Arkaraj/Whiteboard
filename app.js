@@ -3,7 +3,7 @@ const url = require('url');
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-let bodyParser = require('body-parser');
+const imgpath = require('./image.js');
 
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./Users.js');
 
@@ -21,7 +21,7 @@ let loginClass = '';
 //For static files
 app.use(express.static(path.join(__dirname, 'views/')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 //Setting view engine for ejs
 app.set('view engine', 'ejs');
@@ -97,7 +97,15 @@ app.get('/draw', (req, res) => {
         room: query.room
     }
     res.render('draw.ejs', { Qs: msg });
-})
+});
+
+app.get('/gallery', (req, res) => {
+    // Link with mongoDB for images
+    let images = {
+        ipath: imgpath
+    }
+    res.render('gallery.ejs', { Image: images });
+});
 
 PORT = process.env.PORT || 3000;
 
