@@ -84,7 +84,7 @@ span#clr{
   margin-left: 10%;
 }
 span#side{
-  margin: 0 10%;
+  margin: 0 9%;
 }
 .btn {
   cursor: pointer;
@@ -94,7 +94,7 @@ span#side{
   border: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 17px;
-  margin-left: 25%;
+  margin-left: 15%;
   outline: none;
 }
 a.btn{

@@ -210,6 +210,12 @@ z.msg{
 	cursor: pointer;
 }
 
+.gallery{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 @media (max-width: 700px) {
 	.close{
 		top: -18px;

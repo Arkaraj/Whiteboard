@@ -5,14 +5,12 @@ const clr = document.querySelector('.clrpicker');
 const clear = document.querySelector('#clear');
 const brushThickness = document.querySelector('#drop');
 
-/* 
-To do
-Adding sounds for entering and leaving Rooms....
-*/
 const joinSound = new Audio("./join.mp3");
 joinSound.crossOrigin = "anonymous";
 const leaveSound = new Audio("./leave.mp3");
 leaveSound.crossOrigin = "anonymous";
+
+canvas.style.background = 'rgb(255,255,255)';
 
 
 //Get username and room from URL
@@ -86,11 +84,22 @@ function setPosition(e) {
 ctx.canvas.width = 0.98 * (window.innerWidth);
 
 ctx.canvas.height = 0.87 * (window.innerHeight);
+let sizeChange = false;
 
 // resize canvas
 function resize() {
-    ctx.canvas.width = 0.75 * (window.innerWidth);
-    ctx.canvas.height = 0.75 * (window.innerHeight);
+    // ctx.canvas.width = 0.75 * (window.innerWidth);
+    // ctx.canvas.height = 0.75 * (window.innerHeight);
+    if (!sizeChange) {
+        ctx.canvas.width = 1920;
+        ctx.canvas.height = 1280;
+        sizeChange = true;
+    } else {
+        ctx.canvas.width = 0.98 * (window.innerWidth);
+        ctx.canvas.height = 0.87 * (window.innerHeight);
+        sizeChange = false;
+    }
+
 }
 
 function draw(e) {
@@ -124,12 +133,21 @@ dp.addEventListener('click', () => {
     $('.dropdown-content').toggle();
 });
 
+let clrw = true;
+
 function changeClr() {
+    // ctx.globalCompositeOperation = 'destination-over';
     if (canvas.style.background == 'rgb(51, 51, 51)') {
-        canvas.style.background = 'white';
+        canvas.style.background = 'rgb(255, 255, 255)';
+        clrw = true;
     } else {
         canvas.style.background = 'rgb(51, 51, 51)';// #333
+        ctx.fillStyle = '#333333';
+        clrw = false;
     }
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // ctx.globalCompositeOperation = 'source-over';
 }
 
 // Socket io
@@ -183,21 +201,52 @@ socket.on('wrong_Room', check => {
     window.location = '/'
 });
 
+function feature() {
+    let picName = prompt("Name of the Image?", "Enter");
+    if (picName == null || picName == "" || picName == "Enter") {
+        alert('Invalid Name');
+    }
+    else {
+        // Send the name, username, image to backend
+        alert('Sent for Reviewing!! Stay Tuned!!\n Send the image in mail to arkaraj2017@gmail.com');
+    }
+}
+
 
 function Save() {
 
-    const a = document.createElement('a');
-    //For IE/Edge.... who uses this anyways :(
-    if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(canvas.msToBlob(), "WhiteBoard.png")
+
+    var w = canvas.width;
+    var h = canvas.height;
+
+    var data = ctx.getImageData(0, 0, w, h);
+
+    var compositeOperation = ctx.globalCompositeOperation;
+
+    ctx.globalCompositeOperation = "destination-over";
+
+    // Transparent
+    // ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+
+    if (clrw) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    } else {
+        ctx.fillStyle = canvas.style.background;
     }
-    else {
-        document.body.appendChild(a);
-        a.href = canvas.toDataURL("image/png");
-        a.download = 'WhiteBoard.png';
-        a.click();
-        document.body.removeChild(a);
-    }
+
+    ctx.fillRect(0, 0, w, h);
+
+    var imageData = canvas.toDataURL("image/png");
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.putImageData(data, 0, 0);
+    ctx.globalCompositeOperation = compositeOperation;
+
+    var a = document.createElement('a');
+    a.href = imageData;
+    a.download = 'WhiteBoard.png';
+    a.click();
+    // ctx.globalCompositeOperation = 'source-over';
 }
 
 
