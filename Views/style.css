@@ -32,9 +32,9 @@ p{
   color: var(--headingclr);
 }
 
-canvas{ 
+#c{ 
   border: 1px solid #000000;
-  background: #ffffff;
+  /* background: #ffffff; */
 }
 i{
     cursor: pointer;
@@ -84,7 +84,8 @@ span#clr{
   margin-left: 10%;
 }
 span#side{
-  margin: 0 9%;
+  margin: 0;
+  margin-left: 52%;
 }
 .btn {
   cursor: pointer;
@@ -94,9 +95,15 @@ span#side{
   border: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 17px;
-  margin-left: 15%;
+  margin-top: 2%;
+  margin-left: 10%;
   outline: none;
 }
+.btn-info{
+  margin: 0;
+    float: left;
+}
+
 a.btn{
   margin: 0;
   text-decoration: none;

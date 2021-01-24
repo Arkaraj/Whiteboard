@@ -28,38 +28,78 @@
         <i class="fas fa-redo-alt" onclick="undo()"></i>
         <i class="fas fa-expand-alt" onclick="resize()"></i>
     </span>
-
+    <!-- 
     <span id="clr">
         <label class="select">Select the color of the brush</label>
         <input type="color" value="#000000" class="clrpicker">
+    </span> -->
+    <span id="clr">
+        <label for="drawing-color">Brush color:</label>
+        <input type="color" value="#000000" id="drawing-color" class="clrpicker">
     </span>
     <label class="select">Enter the size of the brush</label>
-    <select id="drop">
+    <!-- <span class="info">5</span><input type="range" value="30" min="5" max="30" id="drop"> -->
+    <select id="drop" value="5">
         <option value="5" selected>5</option>
         <option value="10">10</option>
         <option value="15">15</option>
         <option value="20">20</option>
         <option value="25">25</option>
+        <option value="25">35</option>
     </select>
 
-    <span id="side">
-        <div class="dropdown">
-            <button class="dropbtn">View member accessing this Board <i class="fas fa-caret-down"></i></button>
-            <div class="dropdown-content">
-                <!-- <a>Person 1</a>
+    <div style="display: inline-block; margin-left: 10px">
+        <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button>
+
+        <div id="drawing-mode-options">
+            <label for="drawing-mode-selector">Mode:</label>
+            <select id="drawing-mode-selector">
+                <option>Pencil</option>
+                <option>Circle</option>
+                <option>Spray</option>
+                <option>Pattern</option>
+
+                <option>hline</option>
+                <option>vline</option>
+                <option>square</option>
+                <option>diamond</option>
+                <option>texture</option>
+            </select>
+
+            <label for="drawing-shadow-color">Shadow color:</label>
+            <input type="color" value="#000000" id="drawing-shadow-color">
+
+            <label for="drawing-shadow-width">Shadow width:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width">
+
+            <label for="drawing-shadow-offset">Shadow offset:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-offset">
+        </div>
+
+        <span id="side">
+            <div class="dropdown">
+                <button class="dropbtn">View member accessing this Board <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <!-- <a>Person 1</a>
                 <a>Person 2</a>
                 <a>Person 3</a> -->
+                </div>
             </div>
-        </div>
-        <a class="btn" href="/">Exit</a>
-    </span>
+            <a class="btn" href="/">Exit</a>
+        </span>
 
-    <canvas id="canvas"></canvas>
+        <canvas id="c"
+            style="border: 1px solid rgb(170, 170, 170); position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; touch-action: none; user-select: none;"
+            class="lower-canvas"></canvas>
+    </div>
+
+    <!-- <canvas id="canvas"></canvas> -->
     <button class="btn" id="clear">
         Clear the Board
     </button>
     <button class="btn" onclick="feature()">Get Featured! <i class="fas fa-star"></i></button>
     <button class="btn" onclick="Save()">Download as Image <i class="fa fa-download"></i> </button>
+    <button class="btn" onclick="deleteObject()">Delete Selected Doodle</button>
 
     <footer>
         Made with ❤️ by ARKARAJ<br><br>
@@ -69,6 +109,9 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"
     integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.2.0/fabric.min.js"
+    integrity="sha512-Pdu3zoEng2TLwwjnDne3O7zaeWZfEJHU5B63T+zLtME/wg1zfeSH/1wrtOzOC37u2Y1Ki8pTCdKsnbueOlFlMg=="
     crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="./main.js"></script>
