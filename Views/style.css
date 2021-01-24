@@ -90,14 +90,19 @@ span#side{
 .btn {
   cursor: pointer;
   padding: 5px 15px;
-  background: #e6e9ff;
-  color: var(--dark-color-a);
-  border: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 17px;
   margin-top: 2%;
   margin-left: 10%;
-  outline: none;
+  /*Modified from here */
+  
+  background-color: --background;
+  text-decoration: none;
+  border-color: #3498db;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
 }
 .btn-info{
   margin: 0;
@@ -106,16 +111,17 @@ span#side{
 
 a.btn{
   margin: 0;
-  background-color: --background;
+  background-color: var(--background);
+  /*Modified from here */
   text-decoration: none;
   border-color: #3498db;
   color: #fff;
   box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
-  
+  padding: 5px 15px;
 }
-a.btn:hover{
+.btn:hover, a.btn:hover{
     box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
   color:#000;
   background-color: #3498db;
