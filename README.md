@@ -13,3 +13,9 @@ App is now live on: https://whiteboard77.herokuapp.com/
 https://whiteboard77.herokuapp.com/gallery
 
 To get featured, download the image and send it to arkaraj2017@gmail.com
+
+## Fabric.Js
+
+http://fabricjs.com/
+
+Fabric.js is a powerful and simple, Javascript HTML5 canvas library
