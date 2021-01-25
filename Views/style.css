@@ -96,7 +96,7 @@ span#side{
   margin-left: 10%;
   /*Modified from here */
   
-  background-color: --background;
+  background-color: var(--background);
   text-decoration: none;
   border-color: #3498db;
   color: #fff;
