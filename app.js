@@ -19,12 +19,13 @@ let loginMsg = '';
 let loginClass = '';
 
 //For static files
-app.use(express.static(path.join(__dirname, 'views/')));
+app.use(express.static(path.join(__dirname, 'Views/')));
 
 app.use(express.json());
 
 //Setting view engine for ejs
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'Views'));
 
 io.on('connection', (socket) => {
 
